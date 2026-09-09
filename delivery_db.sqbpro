@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="delivery_db.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2261"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="catalogo_tienda" custom_title="0" dock_id="1" table="4,15:maincatalogo_tienda"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000011e00ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">CREATE TABLE catalogo_tienda (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    categoria TEXT NOT NULL,
+    precio REAL NOT NULL,
+    requiere_preparacion INTEGER NOT NULL DEFAULT 0,
+    opciones_disponibles TEXT,
+    stock INTEGER NOT NULL DEFAULT 0
+);
+
+
+CREATE TABLE ordenes (
+    id_orden INTEGER PRIMARY KEY AUTOINCREMENT,
+    fecha_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total REAL NOT NULL,
+    metodo_pago TEXT NOT NULL,
+    estado_actual TEXT NOT NULL DEFAULT 'En Espera'
+);
+
+CREATE TABLE detalle_orden (
+    id_detalle INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_orden INTEGER NOT NULL,
+    id_producto INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL DEFAULT 1,
+    precio_unitario REAL NOT NULL,
+    opcion_seleccionada TEXT,
+    FOREIGN KEY (id_orden) REFERENCES ordenes(id_orden) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES catalogo_tienda(id)
+);
+
+INSERT INTO catalogo_tienda (nombre, categoria, precio, requiere_preparacion, opciones_disponibles, stock) VALUES 
+('Gaseosa Kola 500ml', 'Bebidas', 3.50, 0, NULL, 50),
+('Inca Kola Personal', 'Bebidas', 3.80, 0, NULL, 60),
+('Agua Mineral Sin Gas 600ml', 'Bebidas', 2.00, 0, NULL, 40),
+('Chicha Morada Botella 1L', 'Bebidas', 6.50, 0, NULL, 25),
+('Cerveza Personal Rubia', 'Bebidas', 7.00, 0, NULL, 35),
+('Jugo de Naranja Envasado 1L', 'Bebidas', 8.00, 0, NULL, 15),
+('Papas Fritas Grandes', 'Snacks', 4.00, 0, NULL, 30),
+('Chifles Piuranos Bolsa', 'Snacks', 4.50, 0, NULL, 20),
+('Cancha Salada Pack', 'Snacks', 3.00, 0, NULL, 25),
+('Chocolate con Almendras', 'Dulces', 2.80, 0, NULL, 40),
+('Sublime Extremo', 'Dulces', 2.50, 0, NULL, 50),
+('Porcion Tortita de Chocolate', 'Postres', 7.50, 0, NULL, 12),
+('Tres Leches Vaso', 'Postres', 8.00, 0, NULL, 10),
+('Crema Volteada Personal', 'Postres', 6.00, 0, NULL, 15),
+('Alfajores Caja x6', 'Postres', 9.00, 0, NULL, 18),
+('Hamburguesa Clasica', 'Comida Rapida', 12.50, 1, 'Con queso, Sin cremas', 30),
+('Hamburguesa Royal', 'Comida Rapida', 15.90, 1, 'Huevo y Queso, Doble carne', 20),
+('Salchipapa Simple', 'Comida Rapida', 11.00, 1, 'Clasica, Con tocino', 25),
+('Salchipapa Especial', 'Comida Rapida', 16.50, 1, 'Huevo, Queso melt, Chorizo', 15),
+('Sanguche de Pollo Deshilachado', 'Sanguches', 9.50, 1, 'Con papas al hilo, Solo cremas', 40),
+('Club Sandwich Tradicional', 'Sanguches', 18.00, 1, 'Con papas fritas', 15),
+('Pizza Americana Personal', 'Pizzas', 14.00, 1, 'Masa delgada, Masa gruesa', 20),
+('Pizza Hawaiana Familiar', 'Pizzas', 35.90, 1, 'Extra pina, Extra queso', 10),
+('Pizza Pepperoni Mediana', 'Pizzas', 26.00, 1, 'Borde de queso', 15),
+('Fettuccine a la Huancaina con Lomo', 'Pastas', 28.50, 1, 'Termino de la carne', 12),
+('Pollo a la Brasa 1/4', 'Brasas', 19.50, 1, 'Pecho, Pierna, Con ensalada', 50),
+('Pollo a la Brasa 1/2', 'Brasas', 34.00, 1, 'Papas extras', 30),
+('Lomo Saltado Criollo', 'Platos Fondo', 24.50, 1, 'Jugoso, Seco', 20),
+('Arroz Chaufa de Pollo', 'Chifa', 15.00, 1, 'Con Wantan, Sin Wantan', 35),
+('Mostrito con Chaufa y Brasa', 'Chifa', 22.00, 1, 'Todas las cremas', 25);
+
+SELECT * FROM ordenes;
+SELECT * FROM detalle_orden;
+SELECT * FROM ordenes;</sql><current_tab id="0"/></tab_sql></sqlb_project>

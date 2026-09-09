@@ -1,0 +1,15 @@
+# Maven target directory
+target/
+
+# IDE Files
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+nbproject/private/
+
+# OS / Temporary files
+.DS_Store
+Thumbs.db
+*.log
