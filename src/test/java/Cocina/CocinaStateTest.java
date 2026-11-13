@@ -8,18 +8,15 @@ public class CocinaStateTest {
 
     @Test
     public void testTransicionEstadosOrden() {
-        // 1. Crear una orden nueva (debería iniciar en EstadoEnEspera)
-        Orden orden = new Orden();
+        // 1. Instanciar Orden con los parámetros reales: (int id, String cliente)
+        Orden orden = new Orden(1, "Cliente Prueba");
         CocinaService cocina = new CocinaService();
 
         assertNotNull(orden, "La orden no debe ser nula");
 
-        // 2. Verificar que el flujo de estados avanza sin lanzar excepciones
-        // Si tu clase Orden o CocinaService tiene getEstado(), puedes validar el nombre de la clase:
-        // assertTrue(orden.getEstado() instanceof EstadoEnEspera);
-
+        // 2. Pasar el ID (int) al método procesarOrden según la firma de CocinaService
         assertDoesNotThrow(() -> {
-            cocina.procesarSiguientePaso(orden);
+            cocina.procesarOrden(1);
         }, "El servicio de cocina debe procesar los cambios de estado correctamente");
     }
 }
