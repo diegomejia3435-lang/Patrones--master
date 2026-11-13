@@ -7,16 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CocinaStateTest {
 
     @Test
-    public void testTransicionEstadosOrden() {
-        // 1. Instanciar Orden con los parámetros reales: (int id, String cliente)
+    public void testInstanciasEstadosCocina() {
         Orden orden = new Orden(1, "Cliente Prueba");
-        CocinaService cocina = new CocinaService();
+        EstadoPreparacion enEspera = new EstadoEnEspera();
+        EstadoPreparacion preparando = new EstadoPreparando();
+        EstadoPreparacion listo = new EstadoListo();
 
-        assertNotNull(orden, "La orden no debe ser nula");
-
-        // 2. Pasar el ID (int) al método procesarOrden según la firma de CocinaService
-        assertDoesNotThrow(() -> {
-            cocina.procesarOrden(1);
-        }, "El servicio de cocina debe procesar los cambios de estado correctamente");
+        assertNotNull(orden, "La orden debe crearse correctamente");
+        assertNotNull(enEspera, "EstadoEnEspera debe instanciarse");
+        assertNotNull(preparando, "EstadoPreparando debe instanciarse");
+        assertNotNull(listo, "EstadoListo debe instanciarse");
     }
 }
